@@ -2,6 +2,8 @@
 
 The goal of this document is to provide an overview of all of the major recommendation algorithms.
 
+![](./assets/network_graph.png)
+
 Specifically, for each algorithm, my goal is to provide:
 
 - An intuitive (high level) explanation of how the algorithm works
