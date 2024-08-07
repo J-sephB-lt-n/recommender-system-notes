@@ -18,20 +18,10 @@ A lot of the content in this document is from the book [Recommender Systems: The
 
 | Section                                                                              | Section Status                                       |
 | ------------------------------------------------------------------------------------ | ---------------------------------------------------- |
-| [A Note on Notation](#a-note-on-notation)                                            | needs final edit                                     |
-| Introduction                                                                         | needs final edit                                     |
-| code: data simulator                                                                 | working but incomplete documentation                 |
-| code: embeddings in TensorFlow                                                       | needs final edit                                     |
-| code: embeddings in PyTorch                                                          | needs final edit                                     |
-| code: arules item/item recommender                                                   | needs final edit                                     |
-| code: matrix factorization TensorFlow                                                | needs final edit                                     |
-| code: matrix factorization PyTorch                                                   | incomplete (get complete code from jupyter notebook) |
-| code: graph-based collaborative filtering                                            | needs final edit                                     |
-| code: Deep & Cross model (PyTorch)                                                   | working but incomplete documentation                 |
-| code: 2-Tower Model (TensorFlow)                                                     | needs final edit                                     |
-| Goals of Recommender Systems                                                         | COMPLETED                                            |
+| [A Note on Notation](#a-note-on-notation)                                            | COMPLETED                                            |
+| [Goals of Recommender Systems](#goals-of-recommender-systems)                        | COMPLETED                                            |
+| [Design Patterns](#design-patterns)                                                  | COMPLETED (can be extended)                          |
 | User Embeddings & Item Embeddings                                                    | COMPLETED                                            |
-| Design Patterns                                                                      | COMPLETED                                            |
 | Collaborative Filtering                                                              | COMPLETED                                            |
 | Collaborative Filtering: Neighbourhood: User-User Similarity                         | COMPLETED                                            |
 | Collaborative Filtering: Neighbourhood: Item-Item Similarity                         | COMPLETED                                            |
@@ -52,7 +42,7 @@ A lot of the content in this document is from the book [Recommender Systems: The
 | Graph-Based Collaborative Filtering                                                  | needs final edit                                     |
 | Matrix Factorization (Latent Factor Models)                                          | needs final edit                                     |
 | Naïve Bayes Collaborative Filtering                                                  | needs final edit                                     |
-| Knowledge-Based Recommendation                                                       | needs final edit                                     |
+| [Knowledge-Based Recommendation](#knowledge-based-recommendation)                    | needs final edit                                     |
 | Knowledge-Based Recommendation: Constraint-Based                                     | needs final edit                                     |
 | Knowledge-Based Recommendation: Case-Based                                           | needs final edit                                     |
 | Hybrid Systems                                                                       | needs final edit                                     |
@@ -75,9 +65,11 @@ A lot of the content in this document is from the book [Recommender Systems: The
 
 ### A Note on Notation
 
+[\[back to contents\]](#contents)
+
 Although I use
 
-$$r_{ijc}=\text{rating of item } j \text{ by user } i \text{ in context } c$$
+$$r_{ijc}=\text{user } i \text{'s rating of item } j \text{ in context } c$$
 
 as the outcome of interest throughout this document, this can be more generally understood as
 
@@ -85,11 +77,13 @@ $$r_{ijc}=\text{user } i \text{'s affinity for item } j \text{ in context } c$$
 
 The exact outcome of interest $r_{ijc}$ will depend on the particular recommendation domain (e.g. the outcome of interest could be '_probability of click_' in a web recommendation context, or it could be '_explicit user rating of video X_' in a media streaming context).
 
-<br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+In general, a higher value of $r_{ijc}$ indicates a more favourable outcome.
 
-# Goals of Recommender Systems {#recsys_goals}
+# Goals of Recommender Systems
 
-<a href="#header">[back to contents]</a>
+[\[back to contents\]](#contents)
+
+Quoted parts of this section come from the paper [Diversity, Serendipity, Novelty, and Coverage: A Survey and Empirical Analysis of Beyond-Accuracy Objectives in Recommender Systems](https://dl.acm.org/doi/10.1145/2926720) by Marius Kaminskas and Derek Bridge.
 
 1. **Relevance**: The primary goal of standard [recommender systems](https://en.wikipedia.org/wiki/Recommender_system) is to highlight, for each user, the subset of items which are most **relevant** to them. In other words, to highlight to each user the items which they would be most interested in (the items with the most utility to them).
 
@@ -97,13 +91,13 @@ However, there are some important secondary goals that are also very important i
 
 2. **Novelty**: Recommended items should be ones that a user has not seen before (or ones that the user could not easily find on their own).
 
-3. **Serendipity**: Item recommendations should sometimes be unexpected (pleasantly surprising) to the user. Serendipity is "finding valuable or pleasant things that are not looked for" [@DiversitySerendipityNoveltyCoverage].
+3. **Serendipity**: Item recommendations should sometimes be unexpected (pleasantly surprising) to the user. Serendipity is "finding valuable or pleasant things that are not looked for" (read ).
 
 !["New" and "Surprising" are not the same thing. Image source: author](./assets/novelty_vs_serendipity.png)
 
-4. **Diversity**: "In information retrieval.. [covering] a broad area of the information space increases the chance of satisfying the user's information need" [@DiversitySerendipityNoveltyCoverage]. This is because a user's intent is often ambiguous (e.g. whether "bat" refers to an animal or to a piece of sporting equipment), and returning a diverse result set makes it more likely that what the user is looking for is in it. In other words, it's often a good idea to _hedge your bets_. This concept is similarly applicable to recommendation systems: since one can never been sure exactly what is most relevant to a particular user, it is safer to recommend a diverse set of options to them.
+4. **Diversity**: "In information retrieval.. [covering] a broad area of the information space increases the chance of satisfying the user's information need." This is because a user's intent is often ambiguous (e.g. whether "bat" refers to an animal or to a piece of sporting equipment), and returning a diverse result set makes it more likely that what the user is looking for is in it. In other words, it's often a good idea to _hedge your bets_. This concept is similarly applicable to recommendation systems: since one can never been sure exactly what is most relevant to a particular user, it is safer to recommend a diverse set of options to them.
 
-5. **Coverage**: "_Coverage_ reflects the degree to which the generated recommendations cover the catalogue of available items" [@DiversitySerendipityNoveltyCoverage]. This is important both for users (since it improves the usefulness/depth of the system) and for business-owners (because showing users the same small subset of the item catalogue might impact stock level management of physical items, and also because there has been a general societal shift in consumer demand for products in the [long tail](https://en.wikipedia.org/wiki/Long_tail) of the catalogue [@TheLongTail]).
+5. **Coverage**: "_Coverage_ reflects the degree to which the generated recommendations cover the catalogue of available items." This is important both for users (since it improves the usefulness/depth of the system) and for business-owners (because showing users the same small subset of the item catalogue might impact stock level management of physical items, and also because there has been a general societal shift in consumer demand for products in the [long tail](https://en.wikipedia.org/wiki/Long_tail) of the catalogue).
 
 6. **Non-Offensive**: Certain items (or specific item combinations) can be worse than irrelevant for a particular user - a recommendation might actually **offend** them. An example is an item recommendation (or combination of items) which perpetuates a racial stereotype. It can be very important to identify these offensive user/item combinations since a single **offensive** recommendation can result in the permanent loss of a user.
 
@@ -113,21 +107,39 @@ However, there are some important secondary goals that are also very important i
 
 9. **Perception of System Intelligence**: A single bad recommendation (an obvious mistake) can ruin a set of otherwise perfect recommendations. This is because users tend to be naturally distrustful of automated systems (sometimes even actively seeking out their flaws in order to validate their skepticism). It can sometimes be more important to ensure that the weakest recommendation in a set is not too bad than it is to ensure that the strongest recommendations in it are very good.
 
-There is a good discussion of the topic (the multiple goals of recommender systems), and of how these outcomes can be optimized and objectively measured, in the paper _Diversity, Serendipity, Novelty, and Coverage: A Survey and Empirical Analysis of Beyond-Accuracy Objectives in Recommender Systems_ [@DiversitySerendipityNoveltyCoverage].
+There is a good discussion of the topic (the multiple goals of recommender systems), and of how these outcomes can be optimized and objectively measured, in the paper [Diversity, Serendipity, Novelty, and Coverage: A Survey and Empirical Analysis of Beyond-Accuracy Objectives in Recommender Systems](https://dl.acm.org/doi/10.1145/2926720)
 
 Some further notes:
 
 - There is a blurred line between a [search engine](https://en.wikipedia.org/wiki/Search_engine) and a [recommender system](https://en.wikipedia.org/wiki/Recommender_system). Traditionally, [search engines](https://en.wikipedia.org/wiki/Search_engine) tended to be more user-agnostic (same result for each user) and use an explicit user query, whereas [recommender systems](https://en.wikipedia.org/wiki/Recommender_system) tended to be more hyper-personalized (different result for each user) and use implicit user signals. However, the systems are increasingly overlapping. Certainly, algorithms and insights from both domains are relevant to the recommendation problem.
 
-- Recommendation models exist which are designed to simultaneously optimize multiple (sometimes conflicting) objectives. For example, refer to @multi_obj_survey.
+- Recommendation models exist which are designed to simultaneously optimize multiple (sometimes conflicting) objectives. For example, refer to [Multi-Objective Recommender Systems: Survey and Challenges](https://arxiv.org/abs/2210.10309).
 
 - To go a level deeper: the relative preference for _relevance_, _novelty_, _serendipity_, _diversity_, _catalogue coverage_, etc. of item recommendations is likely different for each unique user. For example, some users might prefer more narrow/conservative recommendations, while others might prefer more wild/exploratory recommendations. This meta-personalization can also be explictly modelled.
 
-<br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+# Design Patterns
+
+[\[back to contents\]](#contents)
+
+Here are some examples of general recommendation system strategies:
+
+- **Hyper Personalisation**: Try to guess exactly which subset of items is most relevant for each individual user
+
+- **Similar Products**: Show user variants of an item that they are currently browsing/interested in (differing on 1 or more product dimension) e.g. "similar item but cheaper", "same item but in red", "similar item from another brand"
+
+- **Complementary Products**: Highlight items which go well with/add value to/are often bought alongside the user's current item (or one which they already own)
+
+- **New Products**: Highlight items recently added to the item catalogue
+
+- **Popular/Trending**: Highlight items popular/trending globally, within a user's segment, or within the current context (e.g. current time, current season, user-chosen genre etc.)
+
+- **Product Replenishment**: Predict timing of user need for an item to be renewed/replenished/replaced
+
+- **Search Engine**: Give users an intelligent system for navigating the item catalogue. See also [Knowledge-Based Recommendation](#knowledge-based-recommendation). This could be text query based, conversational, via user interface, image-based etc.
 
 # User Embeddings & Item Embeddings {#embeddings_explanation}
 
-<a href="#header">[back to contents]</a>
+[\[back to contents\]](#contents)
 
 The [embedding](#embeddings_explanation) is a powerful tool, included as a component in many different models. It is simply a real-valued vector which encodes useful information about an entity, optimized for use in a specific task.
 
@@ -168,26 +180,6 @@ Here is [python code showing how embeddings are included in a TensorFlow model](
 Here is [python code showing how embeddings are included in a PyTorch model](./recsys_alg_implementation_code/embeddings_in_pytorch.py)
 
 <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-
-# Design Patterns {#design_patterns}
-
-<a href="#header">[back to contents]</a>
-
-Here are some examples of general recommendation system strategies:
-
-- **Hyper Personalisation**: Try to guess exactly which subset of items is most relevant for each individual user
-
-- **Similar Products**: Show user variants of an item that they are currently browsing/interested in (differing on 1 or more product dimension) e.g. "similar item but cheaper", "same item but in red", "similar item from another brand"
-
-- **Complementary Products**: Highlight items which go well with/add value to/are often bought alongside the user's current item (or one which they already own)
-
-- **New Products**: Highlight items recently added to the item catalogue
-
-- **Popular/Trending**: Highlight items popular/trending globally, within a user's segment, or within the current context (e.g. current time, current season, user-chosen genre etc.)
-
-- **Product Replenishment**: Predict timing of user need for an item to be renewed/replenished/replaced
-
-- **Search Engine**: Give users an intelligent system for navigating the item catalogue. See also [Knowledge-Based Recommendation Systems](#knowledge_based). This could be text query based, conversational, via user interface, image-based etc.
 
 <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
 
@@ -737,7 +729,7 @@ This assumption of independence between the probabilities of user $u$'s ratings 
 
 <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
 
-# Knowledge-Based Recommendation {#knowledge_based}
+# Knowledge-Based Recommendation
 
 <a href="#header">[back to contents]</a>
 
