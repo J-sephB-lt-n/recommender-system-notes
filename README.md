@@ -1,4 +1,4 @@
-# Notes of Recommender Systems
+# A Summary of all Major Recommender System Algorithms
 
 The goal of this document is to provide an overview of all of the major recommendation algorithms.
 
