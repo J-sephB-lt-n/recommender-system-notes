@@ -1,6 +1,6 @@
-# A Summary of all Major Recommender System Algorithms
+# Concise summary of all major recommender algorithms and concepts
 
-The goal of this document is to provide an overview of all of the major recommendation algorithms.
+The goal of this document is to provide an overview of all of the major recommendation algorithms and concepts.
 
 ![](./assets/network_graph.png)
 
@@ -16,52 +16,53 @@ A lot of the content in this document is from the book [Recommender Systems: The
 
 # Contents
 
-| Section                                                                              | Section Status                                       |
-| ------------------------------------------------------------------------------------ | ---------------------------------------------------- |
-| [A Note on Notation](#a-note-on-notation)                                            | COMPLETED                                            |
-| [Goals of Recommender Systems](#goals-of-recommender-systems)                        | COMPLETED                                            |
-| [Design Patterns](#design-patterns)                                                  | COMPLETED (can be extended)                          |
-| User Embeddings & Item Embeddings                                                    | COMPLETED                                            |
-| Collaborative Filtering                                                              | COMPLETED                                            |
-| Collaborative Filtering: Neighbourhood: User-User Similarity                         | COMPLETED                                            |
-| Collaborative Filtering: Neighbourhood: Item-Item Similarity                         | COMPLETED                                            |
-| Collaborative Filtering: Neighbourhood: Combining User-User and Item-Item Similarity | COMPLETED                                            |
-| Collaborative Filtering: Matrix Factorization                                        | COMPLETED                                            |
-| Collaborative Filtering: Neighbourhood: Graph-Based                                  | needs final edit                                     |
-| Collaborative Filtering: Naïve Bayes                                                 | needs final edit                                     |
-| Content-Based Recommendation                                                         | needs final edit                                     |
-| Content-Based Recommendation: Raw Text Preprocessing                                 | needs final edit                                     |
-| Raw Text Preprocessing python function                                               | need to add my existing python script (and document) |
-| Creating User & Item Characterization Vectors                                        | still TODO                                           |
-| Supervised Learning                                                                  | needs final edit                                     |
-| Multi-Armed Bandits                                                                  | needs final edit                                     |
-| Vincent’s Lemma: Serendipity                                                         | needs final edit                                     |
-| Association Rules-Based Recommendation                                               | needs final edit                                     |
-| Sequential Pattern Mining                                                            | still TODO                                           |
-| Clustering-Based Recommendation                                                      | still TODO                                           |
-| Graph-Based Collaborative Filtering                                                  | needs final edit                                     |
-| Matrix Factorization (Latent Factor Models)                                          | needs final edit                                     |
-| Naïve Bayes Collaborative Filtering                                                  | needs final edit                                     |
-| [Knowledge-Based Recommendation](#knowledge-based-recommendation)                    | needs final edit                                     |
-| Knowledge-Based Recommendation: Constraint-Based                                     | needs final edit                                     |
-| Knowledge-Based Recommendation: Case-Based                                           | needs final edit                                     |
-| Hybrid Systems                                                                       | needs final edit                                     |
-| Graph Neural Networks (GNNs)                                                         | needs final edit                                     |
-| Tradeoffs Between Various Recommendation Algorithms                                  | partially completed                                  |
-| Factorization Machines                                                               | needs final edit                                     |
-| Incorporating Context                                                                | needs final edit                                     |
-| Incorporating Context: Contextual Pre-Filtering                                      | needs final edit                                     |
-| Incorporating Context: Contextual Post-Filtering                                     | needs final edit                                     |
-| Incorporating Context: Contextual Modelling                                          | needs final edit                                     |
-| Incorporating Context: Contextual Modelling: Contextual Latent Factor Models         | partially completed                                  |
-| Incorporating Context: Contextual Modelling: Contextual Neighbourhood-Based Models   | still TODO                                           |
-| Session-Based Recommendation                                                         | still TODO                                           |
-| Wide & Deep Model                                                                    | needs final edit                                     |
-| Deep & Cross Model                                                                   | needs final edit                                     |
-| Two Tower Model                                                                      | needs final edit                                     |
-| Recommendations for Groups of Users                                                  | partially completed                                  |
-| Knowledge Graphs                                                                     | still TODO                                           |
-| Integrating Latent Factor Models with Arbitrary Models                               | partially completed                                  |
+| Section                                                                              | Section Status              |
+| ------------------------------------------------------------------------------------ | --------------------------- |
+| [A Note on Notation](#a-note-on-notation)                                            | COMPLETED                   |
+| [Goals of Recommender Systems](#goals-of-recommender-systems)                        | COMPLETED                   |
+| [Design Patterns](#design-patterns)                                                  | COMPLETED (can be extended) |
+| [User Embeddings and Item Embeddings](#user-embeddings-and-item-embeddings)          | COMPLETED                   |
+| Collaborative Filtering                                                              | COMPLETED                   |
+| Collaborative Filtering: Neighbourhood: User-User Similarity                         | COMPLETED                   |
+| Collaborative Filtering: Neighbourhood: Item-Item Similarity                         | COMPLETED                   |
+| Collaborative Filtering: Neighbourhood: Combining User-User and Item-Item Similarity | COMPLETED                   |
+| Collaborative Filtering: Matrix Factorization                                        | COMPLETED                   |
+| Collaborative Filtering: Neighbourhood: Graph-Based                                  | needs final edit            |
+| Collaborative Filtering: Naïve Bayes                                                 | needs final edit            |
+| Content-Based Recommendation                                                         | needs final edit            |
+| Content-Based Recommendation: Raw Text Preprocessing                                 | needs final edit            |
+| Creating User & Item Characterization Vectors                                        | still TODO                  |
+| Supervised Learning                                                                  | needs final edit            |
+| Multi-Armed Bandits                                                                  | needs final edit            |
+| Vincent’s Lemma: Serendipity                                                         | needs final edit            |
+| Association Rules-Based Recommendation                                               | needs final edit            |
+| Large Language Models                                                                | still TODO                  |
+| Sequential Pattern Mining                                                            | still TODO                  |
+| Clustering-Based Recommendation                                                      | still TODO                  |
+| Graph-Based Collaborative Filtering                                                  | needs final edit            |
+| Matrix Factorization (Latent Factor Models)                                          | needs final edit            |
+| Naïve Bayes Collaborative Filtering                                                  | needs final edit            |
+| [Knowledge-Based Recommendation](#knowledge-based-recommendation)                    | needs final edit            |
+| Knowledge-Based Recommendation: Constraint-Based                                     | needs final edit            |
+| Knowledge-Based Recommendation: Case-Based                                           | needs final edit            |
+| Hybrid Systems                                                                       | needs final edit            |
+| Graph Neural Networks (GNNs)                                                         | needs final edit            |
+| Tradeoffs Between Various Recommendation Algorithms                                  | partially completed         |
+| Factorization Machines                                                               | needs final edit            |
+| Incorporating Context                                                                | needs final edit            |
+| Incorporating Context: Contextual Pre-Filtering                                      | needs final edit            |
+| Incorporating Context: Contextual Post-Filtering                                     | needs final edit            |
+| Incorporating Context: Contextual Modelling                                          | needs final edit            |
+| Incorporating Context: Contextual Modelling: Contextual Latent Factor Models         | partially completed         |
+| Incorporating Context: Contextual Modelling: Contextual Neighbourhood-Based Models   | still TODO                  |
+| Session-Based Recommendation                                                         | still TODO                  |
+| Recommendation using Topic Modelling                                                 | still TODO                  |
+| Wide & Deep Model                                                                    | needs final edit            |
+| Deep & Cross Model                                                                   | needs final edit            |
+| Two Tower Model                                                                      | needs final edit            |
+| Recommendations for Groups of Users                                                  | partially completed         |
+| Knowledge Graphs                                                                     | still TODO                  |
+| Integrating Latent Factor Models with Arbitrary Models                               | partially completed         |
 
 ### A Note on Notation
 
@@ -137,55 +138,49 @@ Here are some examples of general recommendation system strategies:
 
 - **Search Engine**: Give users an intelligent system for navigating the item catalogue. See also [Knowledge-Based Recommendation](#knowledge-based-recommendation). This could be text query based, conversational, via user interface, image-based etc.
 
-# User Embeddings & Item Embeddings {#embeddings_explanation}
+# User Embeddings and Item Embeddings
 
 [\[back to contents\]](#contents)
 
-The [embedding](#embeddings_explanation) is a powerful tool, included as a component in many different models. It is simply a real-valued vector which encodes useful information about an entity, optimized for use in a specific task.
+Embeddings are a powerful tool, and a component of many different models and algorithms. An embedding is simply a real-valued vector (in a continuous vector space) which encodes useful information about an entity, optimized for use in a specific task.
 
-For example: in a recommendation context, we might be able to learn an informative 5-dimensional numeric vector representation ([embedding](#embeddings_explanation)) for each of our users, such as
+For example: in a recommendation context, we might learn an informative 5-dimensional numeric vector representation (embedding) for each user, such as
 
 $$\text{embedding of user ID 69420}:\quad\big[0.235,-0.981,99.64,-1.4,-4.1\big]$$
 
-We can then directly use this [embedding](#embeddings_explanation) in various downstream applications, such as:
+(embeddings are typically much higher-dimensional than this in practice)
 
-- As input features for a predictive model
+We can then directly use this embedding in various downstream tasks, such as:
 
-- As input features for a user segmentation
+- input features for a predictive model
 
-- For creating data visualisations of the user population (a multi-dimensional view of users)
+- input features for a user segmentation (i.e. to identify groups/clusters of similar users)
 
-- As a compressed representation of a user (typically taking up an order less space than a sparse feature representation, sometimes with relatively little loss of information)
+- for creating data visualisations of the user population (a multi-dimensional view of users)
 
-An [embedding](#embeddings_explanation) can also be interpreted as a representation of an object in a [latent space](https://en.wikipedia.org/wiki/Latent_space), meaning a vector space in which the position of an [embedding](#embeddings_explanation) vector in the space provides rich information about the object (not necessarily meaningful to a human, but definitely a highly predictive feature to include in a model).
+- a compressed representation of a user (typically taking up far less space than a sparse feature representation, sometimes with relatively little loss of useful information)
 
-[Embeddings](#embeddings_explanation) are especially useful in a recommendation context, since they are very effective at turning high-dimensional sparse vectors into dense low-dimensional ones (which are much easier to use in a model, and good for combatting [overfitting](https://en.wikipedia.org/wiki/Overfitting)).
+An embedding can also be interpreted as a representation of an object in a [latent](https://en.wikipedia.org/wiki/Latent_space)/[semantic](https://en.wikipedia.org/wiki/Semantic_space) space, meaning a vector space in which the position of the embedding vector conveys meaningful information about the object.
 
-The choice of the dimension of the [embeddings](#embeddings_explanation), and the algorithm used to learn them (which can be supervised or unsupervised), are both hyperparameters to be selected or optimized, and are definitely highly problem specific.
+Embeddings are useful in a recommendation context since they can capture complex characteristics of users, items and recommendation contexts (without requiring extensive manual feature engineering). Replacing sparse features with embeddings can also be used to combat [overfitting](https://en.wikipedia.org/wiki/Overfitting).
 
-Here is a (definitely non-exhaustive) list of methods for creating [embeddings](#embeddings_explanation):
+The choice of the dimension of the embeddings, and the algorithm used to learn them (which can be supervised or unsupervised), are both hyperparameters to be selected or optimized, and are definitely highly problem-specific.
+
+Here is a (non-exhaustive) list of methods for creating embeddings:
 
 - [Auto-Encoder](https://en.wikipedia.org/wiki/Autoencoder)
 
-- [Singular-Value Decomposition (SVD)](https://en.wikipedia.org/wiki/Singular_value_decomposition) (e.g. of the [user/item ratings matrix](#collab_filter))
+- [Singular-Value Decomposition (SVD)](https://en.wikipedia.org/wiki/Singular_value_decomposition) (e.g. of the [user/item ratings matrix](#collaborative-filtering))
 
-- Learned directly via [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) (e.g. using [tensorflow](https://github.com/tensorflow/tensorflow) or [pytorch](https://github.com/pytorch/pytorch))
+- Learned directly in by a neural network (e.g. using [tensorflow](https://github.com/tensorflow/tensorflow) or [pytorch](https://github.com/pytorch/pytorch))
 
-- Learned as parameters of a Bayesian model (such as a [Latent Dirichlet Allocation (LDA)](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) model of the [user/item ratings matrix](#collab_filter))
+- Learned as parameters of a Bayesian model (such as a [Latent Dirichlet Allocation (LDA)](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) model of the [user/item ratings matrix](#collaborative-filtering) - see the [original LDA paper](https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf))
 
 - [Principal Component Analysis (PCA)](https://en.wikipedia.org/wiki/Principal_component_analysis) (e.g. of the user features or of the item features)
 
-Here is [python code showing how embeddings are included in a TensorFlow model](./recsys_alg_implementation_code/embeddings_in_tensorflow.py)
+# Collaborative Filtering
 
-Here is [python code showing how embeddings are included in a PyTorch model](./recsys_alg_implementation_code/embeddings_in_pytorch.py)
-
-<br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-
-<br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-
-# Collaborative Filtering {#collab_filter}
-
-<a href="#header">[back to contents]</a>
+[\[Back to Contents\]](#contents)
 
 ![User/Item Ratings Matrices. Image source: author](./assets/example_rating_matrices.png)
 
