@@ -24,7 +24,7 @@ A lot of the content in this document is from the book [Recommender Systems: The
 | [User Embeddings and Item Embeddings](#user-embeddings-and-item-embeddings)                         | COMPLETED                   |
 | [Collaborative Filtering](#collaborative-filtering)                                                 | COMPLETED                   |
 | [User-User Neighbourhood Collaborative Filtering](#user-user-neighbourhood-collaborative-filtering) | COMPLETED                   |
-| Collaborative Filtering: Neighbourhood: Item-Item Similarity                                        | COMPLETED                   |
+| [Item-Item Neighbourhood Collaborative Filtering](#item-item-neighbourhood-collaborative-filtering) | COMPLETED                   |
 | Collaborative Filtering: Neighbourhood: Combining User-User and Item-Item Similarity                | COMPLETED                   |
 | Collaborative Filtering: Matrix Factorization                                                       | COMPLETED                   |
 | Collaborative Filtering: Neighbourhood: Graph-Based                                                 | needs final edit            |
