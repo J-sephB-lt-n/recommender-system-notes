@@ -212,27 +212,35 @@ There are many different [Collaborative Filtering](https://en.wikipedia.org/wiki
 
 ![User-User Neighbourhood Collaborative Filtering. Image source: author](./assets/user_user_collab_filtering.png)
 
+- [User-User Collaborative Filtering](#user-user-neighbourhood-collaborative-filtering) gives the style of recommendation _"Here are some items that people with similar tastes to you enjoy"_
+
 - An unobserved rating for item $j$ by user $i$ is predicted as the average rating of item $j$ across the $k$ users most similar to user $i$ who have rated item $j$. This average can (if desired) be weighted proportionately to each user's similarity to user $i$.
 
   "_Average_" here could mean any aggregation function (_mean_, _mode_, _maximum_ etc.)
 
 - $k$ is a parameter to be chosen or determined algorithmically
 
-- _Similarity_ between 2 users is traditionally defined using the distance between their item rating vectors (i.e. their rows) in the [user/item ratings matrix](#collab_filter).
+- _Similarity_ between 2 users is traditionally defined using the distance between their item rating vectors (i.e. their rows) in the [user/item ratings matrix](#user-user-neighbourhood-collaborative-filtering).
 
   [Vector distance metrics](https://en.wikipedia.org/wiki/Distance#Distances_in_physics_and_geometry) such as _cosine similarity_, _euclidean distance_, _manhattan distance_ etc. can be used for this purpose (using only the observed entries shared by both users).
 
 - "_Closest $k$ neighbours_" can (if desired) be replaced by "_all neighbours within a distance of d_"
 
-- Compared to [Item-Item Similarity](#item_item_collab_filter), [User-User Similarity](#user_user_collab_filter) tends to produce more [serendipitous](#recsys_goals) - if sometimes less relevant - recommendations (see also [Combining User-User & Item-Item Similarity](#combine_user_user_item_item_collab_filter)).
+- Compared to [Item-Item Collaborative Filtering](#item-item-neighbourhood-collaborative-filtering), [User-User Collaborative Filtering](#user-user-neighbourhood-collaborative-filtering) tends to produce more [serendipitous](#goals-of-recommender-systems) - if sometimes less relevant - recommendations (see also [Combining User-User and Item-Item Similarity](#combining-user-user-and-item-item-neighbourhood-collaborative-filtering)).
 
-- Instead of (or in addition to) using the information in the [user/item ratings matrix](#collab_filter) to measure the similarity between users, one could utilise user attribute data directly (e.g. user demographic profile), or a [graph-based approach](#intro_graph_collab_filter).
+- Instead of (or in addition to) using the information in the [user/item ratings matrix](#user-user-neighbourhood-collaborative-filtering) to measure the similarity between users, one could utilise user attribute data directly (e.g. user demographic profile), or use a [graph-based approach](#graph-based-collaborative-filtering).
 
-## Collaborative Filtering: Neighbourhood: Item-Item Similarity {#item_item_collab_filter}
+## Item-Item Neighbourhood Collaborative Filtering
+
+[\[Back to Collaborative Filtering\]](#collaborative-filtering)
+
+[\[Back to Contents\]](#contents)
 
 ![Item-Item Neighbourhood Collaborative Filtering. Image source: author](./assets/item_item_collab_filtering.png)
 
-- [Item-Item collaborative filtering](#item_item_collab_filter) is mathematically identical to [User-User collaborative filtering](#user_user_collab_filter), except that the calculation is performed using items (columns of the [user/item rating matrix](#collab_filter)) instead of users (rows)
+- [Item-Item Collaborative Filtering](#item-item-neighbourhood-collaborative-filtering) gives the style of recommendation _"here are some new items similar to items you've previously liked"_
+
+- Item-item collaborative filtering is mathematically identical to [User-User collaborative filtering](#user-user-neighbourhood-collaborative-filtering), except that the calculation is performed using items (columns of the [user/item rating matrix](#collab_filter)) instead of users (rows)
 
   i.e. an unobserved rating for item $j$ by user $i$ is estimated as the average rating by user $i$ over the $k$ most similar items to item $j$ that user $i$ has rated.
 
@@ -242,7 +250,11 @@ There are many different [Collaborative Filtering](https://en.wikipedia.org/wiki
 
 - Instead of (or in addition to) using the information in the [user/item ratings matrix](#collab_filter) to measure the similarity between items, one could utilise item attribute/content data directly (e.g. item text description), or a [graph-based approach](#intro_graph_collab_filter).
 
-## Collaborative Filtering: Neighbourhood: Combining _User-User_ and _Item-Item_ Similarity {#combine_user_user_item_item_collab_filter}
+## Combining User-User and Item-Item Neighbourhood Collaborative Filtering
+
+[\[Back to Collaborative Filtering\]](#collaborative-filtering)
+
+[\[Back to Contents\]](#contents)
 
 Since any missing (unobserved) entry $r_{ij}$ in the [user/item ratings matrix](#collab_filter) can be estimated using either [User-User Similarity](#user_user_collab_filter) ($\hat{r}_{ij}^{(uuCF)}$) or [Item-Item Similarity](#item_item_collab_filter) ($\hat{r}_{ij}^{(iiCF)}$), it can also be estimated as a weighted average of the two:
 
@@ -250,7 +262,7 @@ $$\hat{r}_{ij} \quad=\quad \alpha \space \hat{r}_{ij}^{(uuCF)} + (1-\alpha) \spa
 
 ..where the hyperparameter $\alpha$ can be used to control the balance between _item-item_ (more relevant recommendations) and _user-user_ (more serendipitous recommendations).
 
-## Collaborative Filtering: Matrix Factorization {#intro_matrix_factor_collab_filter}
+## Matrix Factorization Collaborative Filtering
 
 [Matrix factorization](#matrix_factor_collab_filter) refers to the process of learning a low-rank approximation of the [user/item ratings matrix](#collab_filter), then using this low-rank representation to infer the missing (unobserved) ratings in the matrix.
 
@@ -258,13 +270,22 @@ $$\hat{r}_{ij} \quad=\quad \alpha \space \hat{r}_{ij}^{(uuCF)} + (1-\alpha) \spa
 
 For more information, refer to the section [Matrix Factorization (Latent Factor Models)](#matrix_factor_collab_filter).
 
-## Collaborative Filtering: Neighbourhood: Graph-Based {#intro_graph_collab_filter}
+## Graph-Based Collaborative Filtering
 
-When using a [neighbourhood-based collaborative filtering](#user_user_collab_filter) approach, sparsity of the [ratings matrix](#collab_filter) can sometimes make it impossible to obtain a satisfactory set of similar users (items) for some of the users (items). This problem is elegantly solved by representing the relationships between users and/or items using a graph, since it allows one to measure the similarity between users (items) via intermediate users (items) e.g. users are considered more similar if they have a shorter path between them in the graph (even if they have no items in common).
+When using a [neighbourhood-based collaborative filtering](#user-user-neighbourhood-collaborative-filtering) approach, sparsity of the [ratings matrix](#collab_filter) can sometimes make it impossible to obtain a satisfactory set of similar users (items) for some of the users (items). This problem is elegantly solved by representing the relationships between users and/or items using a graph, since it allows one to measure the similarity between users (items) via intermediate users (items) e.g. users are considered more similar if they have a shorter path between them in the graph (even if they have no items in common).
+Relationships between users and items can be cleanly described (and modelled) using graphs, in which nodes represent entities (e.g. user or item) and edges represent relationships between them.
+
+Graphs define a novel measure of distance (dissimilarity) between entities: the length of a path between them, travelling along edges (e.g. using the shortest path, or using a random walk).
 
 ![Image Source: author](./assets/different_graph_representations.png)
 
-For more information, refer to [Graph-Based Collaborative Filtering](#graph_collab_filter)
+- If required, edges can have different weights, describing the strength (and sign) of the connection (relationship) between nodes (entities).
+
+- Graphs are an effective solution to the problem of data sparsity e.g. most users have rated only a tiny proportion of all items, because even users with no items in common can be linked through intermediate users in the graph.
+
+- Graphs structures can be coded directly (e.g. [NetworkX](https://github.com/networkx/networkx)), or using a model (there are MANY deep learning approaches). Model-based methods also facilitate tasks such as link (edge) prediction.
+
+See also: [Graph Neural Networks](#graph_neural_nets)
 
 ## Collaborative Filtering: Naïve Bayes {#intro_naive_bayes_collab_filter}
 
@@ -593,29 +614,6 @@ TODO
 TODO
 
 <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-
-# Graph-Based Collaborative Filtering {#graph_collab_filter}
-
-<a href="#header">[back to contents]</a>
-
-When using a [neighbourhood-based collaborative filtering](#user_user_collab_filter) approach, sparsity of the [ratings matrix](#collab_filter) can sometimes make it impossible to obtain a satisfactory set of similar users (items) for some of the users (items). This problem is elegantly solved by representing the relationships between users and/or items using a graph, since it allows one to measure the similarity between users (items) via intermediate users (items) e.g. users are considered more similar if they have a shorter path between them in the graph (even if they have no items in common).
-Relationships between users and items can be cleanly described (and modelled) using graphs, in which nodes represent entities (e.g. user or item) and edges represent relationships between them.
-
-Graphs define a novel measure of distance (dissimilarity) between entities: the length of a path between them, travelling along edges (e.g. using the shortest path, or using a random walk).
-
-![image source: author](./assets/different_graph_representations.png)
-
-- If required, edges can have different weights, describing the strength (and sign) of the connection (relationship) between nodes (entities).
-
-- Graphs are an effective solution to the problem of data sparsity e.g. most users have rated only a tiny proportion of all items, because even users with no items in common can be linked through intermediate users in the graph.
-
-- Graphs structures can be coded directly (e.g. [NetworkX](https://github.com/networkx/networkx)), or using a model (there are MANY deep learning approaches). Model-based methods also facilitate tasks such as link (edge) prediction.
-
-Here is [python code implementing graph-based collaborative filtering using NetworkX and graph-walker](./recsys_alg_implementation_code/user_item_networkx.py)
-
-![image source: author](./assets/graph_collab_filter_networkX_code_output.png)
-
-See also: [Graph Neural Networks](#graph_neural_nets)
 
 <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
 
